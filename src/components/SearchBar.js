@@ -1,14 +1,21 @@
-function SearchBar({ onSubmit }){
+import { useState } from 'react';
 
-    // HANDLE THE USER'S CLICKING OF THE BUTTON
-    // AND CALL ONSUBMIT TO FLOW UP TO HANDLESUBMIT IN PARENT COMPONENT
-    const handleClick = () =>{
+function SearchBar({onSubmit}){
+    const [term, setTerm] = useState("");
 
-        onSubmit("cars");
+    const handleFormSubmit = (event) => {
+        event.preventDefault() // prevents the submit event triggering, and collecting all element information to make the network request.
+        onSubmit(term);
+    };
+
+    const handleChange = (event) =>{
+        setTerm(event.target.value);
     }
+
     return <div>
-        <input />
-        <button onClick={handleClick}>Click Me!</button>
+        <form onSubmit={handleFormSubmit}>
+            <input value={term} onChange={handleChange}/>
+        </form>
     </div>
 }
 
